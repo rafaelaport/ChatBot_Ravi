@@ -1,7 +1,7 @@
 {
   "luis_schema_version": "3.2.0",
   "versionId": "0.1",
-  "name": "FlightBooking",
+  "name": "ravi-v1-8804",
   "desc": "Luis Model for CoreBot",
   "culture": "en-us",
   "tokenizerVersion": "1.0.0",
@@ -17,9 +17,25 @@
     },
     {
       "name": "None"
+    },
+    {
+      "name": "NovoEmpregado"
     }
   ],
-  "entities": [],
+  "entities": [
+    {
+      "name": "Matricula",
+      "roles": []
+    },
+    {
+      "name": "NomeCompleto",
+      "roles": []
+    },
+    {
+      "name": "Solicitante",
+      "roles": []
+    }
+  ],
   "composites": [
     {
       "name": "From",
@@ -177,9 +193,86 @@
       "entities": []
     },
     {
+      "text": "cadastrar empregado rafaela",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 20,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "cadastrar novo empregado vinicius",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 25,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "cadastrar novo funcionário renata",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 27,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "cadastrar o funcionário roberto",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 24,
+          "endPos": 30
+        }
+      ]
+    },
+    {
       "text": "cancel booking",
       "intent": "Cancel",
       "entities": []
+    },
+    {
+      "text": "criar novo empregado cristina",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 21,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "criar novo empregado rosana",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 21,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "criar novo funcionário matheus",
+      "intent": "NovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 23,
+          "endPos": 29
+        }
+      ]
     },
     {
       "text": "exit",

@@ -29,16 +29,18 @@ namespace Microsoft.BotBuilderSamples.Bots
                 // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    var welcomeCard = CreateAdaptiveCardAttachment();
-                    var response = MessageFactory.Attachment(welcomeCard);
-                    await turnContext.SendActivityAsync(response, cancellationToken);
+                    //var welcomeCard = CreateAdaptiveCardAttachment();
+                    //var response = MessageFactory.Attachment(welcomeCard);
+                    //await turnContext.SendActivityAsync(response, cancellationToken);
+
+                    //Chama a classe MainDialog
                     await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
                 }
             }
         }
 
         // Load attachment from embedded resource.
-        private Attachment CreateAdaptiveCardAttachment()
+        /*private Attachment CreateAdaptiveCardAttachment()
         {
             var cardResourcePath = "CoreBot.Cards.welcomeCard.json";
 
@@ -54,6 +56,6 @@ namespace Microsoft.BotBuilderSamples.Bots
                     };
                 }
             }
-        }
+        }*/
     }
 }

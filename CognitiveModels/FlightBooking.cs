@@ -19,7 +19,8 @@ namespace Microsoft.BotBuilderSamples
             BookFlight,
             Cancel,
             GetWeather,
-            None
+            None,
+            NovoEmpregado
         };
         public Dictionary<Intent, IntentScore> Intents;
 
@@ -57,6 +58,7 @@ namespace Microsoft.BotBuilderSamples
             }
             public ToClass[] To;
 
+
             // Instance
             public class _Instance
             {
@@ -64,6 +66,7 @@ namespace Microsoft.BotBuilderSamples
                 public InstanceData[] Airport;
                 public InstanceData[] From;
                 public InstanceData[] To;
+                public InstanceData[] NovoEmpregado;
             }
             [JsonProperty("$instance")]
             public _Instance _instance;
