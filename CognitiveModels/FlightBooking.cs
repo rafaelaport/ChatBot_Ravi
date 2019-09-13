@@ -26,6 +26,7 @@ namespace Microsoft.BotBuilderSamples
 
         public class _Entities
         {
+            public string[] NomeCompleto;
 
             // Built-in entities
             public DateTimeSpec[] datetime;
@@ -65,9 +66,12 @@ namespace Microsoft.BotBuilderSamples
                 public InstanceData[] Airport;
                 public InstanceData[] From;
                 public InstanceData[] To;
+                public InstanceData[] NomeCompleto;
             }
             [JsonProperty("$instance")]
             public _Instance _instance;
+
+
         }
         public _Entities Entities;
 

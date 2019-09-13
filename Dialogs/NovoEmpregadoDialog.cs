@@ -16,7 +16,7 @@ namespace CoreBot.CognitiveModels
         private const string DestinationStepMsgText = "Deseja cadastrar um novo empregado?";
 
         public NovoEmpregadoDialog()
-            : base(nameof(BookingDialog))
+            : base(nameof(NovoEmpregadoDialog))
         {
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));

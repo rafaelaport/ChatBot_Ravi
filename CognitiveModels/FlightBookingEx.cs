@@ -32,5 +32,15 @@ namespace Microsoft.BotBuilderSamples
         // TIMEX is a format that represents DateTime expressions that include some ambiguity. e.g. missing a Year.
         public string TravelDate
             => Entities.datetime?.FirstOrDefault()?.Expressions.FirstOrDefault()?.Split('T')[0];
+
+        public string NomeCompleto
+        {
+            get
+            {
+                var nomeCompleto = Entities?._instance?.NomeCompleto?.FirstOrDefault()?.Text;
+
+                return nomeCompleto;
+            }
+        }
     }
 }

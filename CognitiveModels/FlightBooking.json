@@ -24,15 +24,7 @@
   ],
   "entities": [
     {
-      "name": "Matricula",
-      "roles": []
-    },
-    {
       "name": "NomeCompleto",
-      "roles": []
-    },
-    {
-      "name": "Solicitante",
       "roles": []
     }
   ],

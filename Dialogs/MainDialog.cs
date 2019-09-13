@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CoreBot.CognitiveModels;
+using CoreBot.Details;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
@@ -55,7 +57,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
         }
 
-        private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        /*private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             if (!_luisRecognizer.IsConfigured)
             {
@@ -81,6 +83,50 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                     // Run the BookingDialog giving it whatever details we have from the LUIS call, it will fill out the remainder.
                     return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
+
+                case FlightBooking.Intent.GetWeather:
+                    // We haven't implemented the GetWeatherDialog so we just display a TODO message.
+                    var getWeatherMessageText = "TODO: get weather flow here";
+                    var getWeatherMessage = MessageFactory.Text(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
+                    await stepContext.Context.SendActivityAsync(getWeatherMessage, cancellationToken);
+                    break;
+
+                default:
+                    // Catch all for unhandled intents
+                    var didntUnderstandMessageText = $"Sorry, I didn't get that. Please try asking in a different way (intent was {luisResult.TopIntent().intent})";
+                    var didntUnderstandMessage = MessageFactory.Text(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
+                    await stepContext.Context.SendActivityAsync(didntUnderstandMessage, cancellationToken);
+                    break;
+            }
+
+            return await stepContext.NextAsync(null, cancellationToken);
+        }*/
+
+    
+       private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            if (!_luisRecognizer.IsConfigured)
+            {
+                // LUIS is not configured, we just run the BookingDialog path with an empty BookingDetailsInstance.
+                return await stepContext.BeginDialogAsync(nameof(NovoEmpregadoDialog), new NovoEmpregadoDetails(), cancellationToken);
+            }
+
+            // Call LUIS and gather any potential booking details. (Note the TurnContext has the response to the prompt.)
+            var luisResult = await _luisRecognizer.RecognizeAsync<FlightBooking>(stepContext.Context, cancellationToken);
+            switch (luisResult.TopIntent().intent)
+            {
+                case FlightBooking.Intent.NovoEmpregado:
+                    //await ShowWarningForUnsupportedCities(stepContext.Context, luisResult, cancellationToken);
+
+                    // Initialize BookingDetails with any entities we may have found in the response.
+                    var novoEmpregadoDetails = new NovoEmpregadoDetails()
+                    {
+                        // Get destination and origin from the composite entities arrays.
+                        NomeCompleto = luisResult.NomeCompleto
+                    };
+
+                    // Run the BookingDialog giving it whatever details we have from the LUIS call, it will fill out the remainder.
+                    return await stepContext.BeginDialogAsync(nameof(NovoEmpregadoDialog), novoEmpregadoDetails, cancellationToken);
 
                 case FlightBooking.Intent.GetWeather:
                     // We haven't implemented the GetWeatherDialog so we just display a TODO message.
@@ -126,6 +172,30 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 await context.SendActivityAsync(message, cancellationToken);
             }
         }
+
+       /* private static async Task ShowWarningForUnsupportedCities(ITurnContext context, FlightBooking luisResult, CancellationToken cancellationToken)
+        {
+            var nomeNaoEncontrado = new List<string>();
+
+            var nomeCompleto = luisResult.NomeCompleto;
+            if (!string.IsNullOrEmpty(nomeCompleto))
+            {
+                nomeNaoEncontrado.Add(nomeCompleto);
+            }
+
+            var toEntities = luisResult.ToEntities;
+            if (!string.IsNullOrEmpty(toEntities.To) && string.IsNullOrEmpty(toEntities.Airport))
+            {
+                unsupportedCities.Add(toEntities.To);
+            }
+
+            if (nomeNaoEncontrado.Any())
+            {
+                var messageText = $"Sorry but the following airports are not supported: {string.Join(',', nomeNaoEncontrado)}";
+                var message = MessageFactory.Text(messageText, messageText, InputHints.IgnoringInput);
+                await context.SendActivityAsync(message, cancellationToken);
+            }
+        }*/
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
