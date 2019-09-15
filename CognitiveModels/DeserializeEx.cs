@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Microsoft.BotBuilderSamples
 {
-    // Extends the partial FlightBooking class with methods and properties that simplify accessing entities in the luis results
+    // Extends the partial Deserialize class with methods and properties that simplify accessing entities in the luis results
     public partial class Deserialize
     {
         public (string From, string Airport) FromEntities
