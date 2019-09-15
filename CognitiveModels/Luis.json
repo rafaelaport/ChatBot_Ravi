@@ -13,7 +13,7 @@
       "name": "Cancel"
     },
     {
-      "name": "Funcionalidade"
+      "name": "FuncionalidadeNovoEmpregado"
     },
     {
       "name": "GetWeather"
@@ -22,7 +22,20 @@
       "name": "None"
     }
   ],
-  "entities": [],
+  "entities": [
+    {
+      "name": "Matricula",
+      "roles": []
+    },
+    {
+      "name": "NomeCompleto",
+      "roles": []
+    },
+    {
+      "name": "NomeSolicitante",
+      "roles": []
+    }
+  ],
   "composites": [
     {
       "name": "From",
@@ -180,23 +193,67 @@
       "entities": []
     },
     {
+      "text": "cadastrar a funcionária lívia gonçalves",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 24,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "cadastrar alberto santana",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 10,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "cadastrar o funcionário rodolfo da silva",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 24,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "cadastrar rafaela portugal",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 10,
+          "endPos": 25
+        }
+      ]
+    },
+    {
       "text": "cadastrar um empregado novo",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
       "text": "cadastrar um funcionário novo",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
       "text": "cadastrar um novo empregado",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
       "text": "cadastrar um novo funcionário",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
@@ -295,23 +352,56 @@
       "entities": []
     },
     {
+      "text": "inserir a funcionária rafaela portugal",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 22,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "inserir cristina da costa",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 8,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "inserir o funcionário marcos",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 22,
+          "endPos": 27
+        }
+      ]
+    },
+    {
       "text": "inserir um empregado novo",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
       "text": "inserir um funcionário novo",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
       "text": "inserir um novo empregado",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {
       "text": "inserir um novo funcionário",
-      "intent": "Funcionalidade",
+      "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
     },
     {

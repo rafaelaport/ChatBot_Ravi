@@ -33,5 +33,16 @@ namespace Microsoft.BotBuilderSamples
         public string TravelDate
             => Entities.datetime?.FirstOrDefault()?.Expressions.FirstOrDefault()?.Split('T')[0];
 
+        public (string NomeCompleto, string Matricula, string NomeSolicitante) NovoEmpregado
+        {
+            get
+            {
+                var NomeCompleto = Entities?._instance?.NomeCompleto?.FirstOrDefault()?.Text;
+                var Matricula = Entities?._instance?.Matricula?.FirstOrDefault()?.Text;
+                var NomeSolicitante = Entities?._instance.NomeSolicitante?.FirstOrDefault()?.Text ;
+                return (NomeCompleto, Matricula, NomeSolicitante);
+            }
+        }
+
     }
 }

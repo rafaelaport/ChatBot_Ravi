@@ -11,7 +11,6 @@ namespace CoreBot.Dialogs
     public class NovoEmpregadoDialog: CancelAndHelpDialog
     {
         private const string solicitacaoNomeCompleto = "Qual o nome completo do empregado?";
-        private const string OriginStepMsgText = "Where are you traveling from?";
 
         public NovoEmpregadoDialog()
             : base(nameof(NovoEmpregadoDialog))
@@ -22,7 +21,7 @@ namespace CoreBot.Dialogs
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 VerificacaoNomeCompletoStepAsync,
-                //OriginStepAsync,
+                VerificacaoMatriculaStepAsync,
                 //TravelDateStepAsync,
                 //ConfirmStepAsync,
                 //FinalStepAsync,
@@ -41,8 +40,35 @@ namespace CoreBot.Dialogs
                 var promptMessage = MessageFactory.Text(solicitacaoNomeCompleto, solicitacaoNomeCompleto, InputHints.ExpectingInput);
                 return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
             }
+            /*else
+            {
+
+                //TODO: alterar Yes e No para Sim e Não
+                //TODO: fazer o tratamento dependendo da resposta, se for sim, solicitar matricula, se for não pedir o nome completo do funcionário
+                var confirmacaoNomeCompleto = $"O nome completo do novo empregado é: {novoEmpregadoDetails.NomeCompleto}?";
+                var promptMessage = MessageFactory.Text(confirmacaoNomeCompleto, confirmacaoNomeCompleto, InputHints.ExpectingInput);
+
+               return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+               
+            }*/
 
             return await stepContext.NextAsync(novoEmpregadoDetails.NomeCompleto, cancellationToken);
+        }
+
+        private async Task<DialogTurnResult> VerificacaoMatriculaStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
+
+            novoEmpregadoDetails.NomeCompleto = (string)stepContext.Result;
+
+            if (novoEmpregadoDetails.Matricula == null)
+            {
+                var solicitacaoMatricula = $"Qual é a matrícula de {novoEmpregadoDetails.NomeCompleto}?";
+                var promptMessage = MessageFactory.Text(solicitacaoMatricula, solicitacaoMatricula, InputHints.ExpectingInput);
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+            }
+
+            return await stepContext.NextAsync(novoEmpregadoDetails.Matricula, cancellationToken);
         }
     }
 }

@@ -70,10 +70,12 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             var luisResult = await _luisRecognizer.RecognizeAsync<Deserialize>(stepContext.Context, cancellationToken);
             switch (luisResult.TopIntent().intent)
             {
-                case Deserialize.Intent.Funcionalidade:
+                case Deserialize.Intent.FuncionalidadeNovoEmpregado:
                     var novoEmpregadoDetails = new NovoEmpregadoDetails()
                     {
-                        NomeCompleto = null
+                        NomeCompleto = luisResult.NovoEmpregado.NomeCompleto,
+                        Matricula = luisResult.NovoEmpregado.Matricula,
+                        NomeSolicitante = luisResult.NovoEmpregado.NomeSolicitante
                     };
                     return await stepContext.BeginDialogAsync(nameof(NovoEmpregadoDialog), novoEmpregadoDetails, cancellationToken);
 
