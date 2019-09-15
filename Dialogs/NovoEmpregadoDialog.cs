@@ -3,9 +3,6 @@ using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Microsoft.BotBuilderSamples.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,7 +10,7 @@ namespace CoreBot.Dialogs
 {
     public class NovoEmpregadoDialog: CancelAndHelpDialog
     {
-        private const string DestinationStepMsgText = "Qual o nome completo do empregado?";
+        private const string solicitacaoNomeCompleto = "Qual o nome completo do empregado?";
         private const string OriginStepMsgText = "Where are you traveling from?";
 
         public NovoEmpregadoDialog()
@@ -21,10 +18,10 @@ namespace CoreBot.Dialogs
         {
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
-            AddDialog(new DateResolverDialog());
+           // AddDialog(new DateResolverDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
-                DestinationStepAsync,
+                VerificacaoNomeCompletoStepAsync,
                 //OriginStepAsync,
                 //TravelDateStepAsync,
                 //ConfirmStepAsync,
@@ -35,13 +32,13 @@ namespace CoreBot.Dialogs
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        private async Task<DialogTurnResult> DestinationStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> VerificacaoNomeCompletoStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
 
             if (novoEmpregadoDetails.NomeCompleto == null)
             {
-                var promptMessage = MessageFactory.Text(DestinationStepMsgText, DestinationStepMsgText, InputHints.ExpectingInput);
+                var promptMessage = MessageFactory.Text(solicitacaoNomeCompleto, solicitacaoNomeCompleto, InputHints.ExpectingInput);
                 return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
             }
 

@@ -76,10 +76,6 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                         NomeCompleto = null
                     };
                     return await stepContext.BeginDialogAsync(nameof(NovoEmpregadoDialog), novoEmpregadoDetails, cancellationToken);
-                    /*var textoMensagemFuncionalidade = $"CHEGUEI AQUI";
-                    var mensagemFuncionalidade = MessageFactory.Text(textoMensagemFuncionalidade, textoMensagemFuncionalidade, InputHints.IgnoringInput);
-                    await stepContext.Context.SendActivityAsync(mensagemFuncionalidade, cancellationToken);
-                    break;*/
 
                 case Deserialize.Intent.BookFlight:
                     await ShowWarningForUnsupportedCities(stepContext.Context, luisResult, cancellationToken);
