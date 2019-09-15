@@ -19,15 +19,13 @@ namespace Microsoft.BotBuilderSamples
             BookFlight,
             Cancel,
             GetWeather,
-            NovoEmpregado,
+            Funcionalidade,
             None
         };
         public Dictionary<Intent, IntentScore> Intents;
 
         public class _Entities
         {
-            public string[] NomeCompleto;
-
             // Built-in entities
             public DateTimeSpec[] datetime;
 
@@ -66,7 +64,6 @@ namespace Microsoft.BotBuilderSamples
                 public InstanceData[] Airport;
                 public InstanceData[] From;
                 public InstanceData[] To;
-                public InstanceData[] NomeCompleto;
             }
             [JsonProperty("$instance")]
             public _Instance _instance;

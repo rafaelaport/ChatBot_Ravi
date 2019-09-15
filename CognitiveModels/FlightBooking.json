@@ -13,21 +13,16 @@
       "name": "Cancel"
     },
     {
+      "name": "Funcionalidade"
+    },
+    {
       "name": "GetWeather"
     },
     {
       "name": "None"
-    },
-    {
-      "name": "NovoEmpregado"
     }
   ],
-  "entities": [
-    {
-      "name": "NomeCompleto",
-      "roles": []
-    }
-  ],
+  "entities": [],
   "composites": [
     {
       "name": "From",
@@ -185,86 +180,29 @@
       "entities": []
     },
     {
-      "text": "cadastrar empregado rafaela",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 20,
-          "endPos": 26
-        }
-      ]
+      "text": "cadastrar um empregado novo",
+      "intent": "Funcionalidade",
+      "entities": []
     },
     {
-      "text": "cadastrar novo empregado vinicius",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 25,
-          "endPos": 32
-        }
-      ]
+      "text": "cadastrar um funcionário novo",
+      "intent": "Funcionalidade",
+      "entities": []
     },
     {
-      "text": "cadastrar novo funcionário renata",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 27,
-          "endPos": 32
-        }
-      ]
+      "text": "cadastrar um novo empregado",
+      "intent": "Funcionalidade",
+      "entities": []
     },
     {
-      "text": "cadastrar o funcionário roberto",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 24,
-          "endPos": 30
-        }
-      ]
+      "text": "cadastrar um novo funcionário",
+      "intent": "Funcionalidade",
+      "entities": []
     },
     {
       "text": "cancel booking",
       "intent": "Cancel",
       "entities": []
-    },
-    {
-      "text": "criar novo empregado cristina",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 21,
-          "endPos": 28
-        }
-      ]
-    },
-    {
-      "text": "criar novo empregado rosana",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 21,
-          "endPos": 26
-        }
-      ]
-    },
-    {
-      "text": "criar novo funcionário matheus",
-      "intent": "NovoEmpregado",
-      "entities": [
-        {
-          "entity": "NomeCompleto",
-          "startPos": 23,
-          "endPos": 29
-        }
-      ]
     },
     {
       "text": "exit",
@@ -354,6 +292,26 @@
     {
       "text": "ignore",
       "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "inserir um empregado novo",
+      "intent": "Funcionalidade",
+      "entities": []
+    },
+    {
+      "text": "inserir um funcionário novo",
+      "intent": "Funcionalidade",
+      "entities": []
+    },
+    {
+      "text": "inserir um novo empregado",
+      "intent": "Funcionalidade",
+      "entities": []
+    },
+    {
+      "text": "inserir um novo funcionário",
+      "intent": "Funcionalidade",
       "entities": []
     },
     {

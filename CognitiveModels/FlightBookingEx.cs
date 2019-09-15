@@ -33,14 +33,5 @@ namespace Microsoft.BotBuilderSamples
         public string TravelDate
             => Entities.datetime?.FirstOrDefault()?.Expressions.FirstOrDefault()?.Split('T')[0];
 
-        public string NomeCompleto
-        {
-            get
-            {
-                var nomeCompleto = Entities?._instance?.NomeCompleto?.FirstOrDefault()?.Text;
-
-                return nomeCompleto;
-            }
-        }
     }
 }

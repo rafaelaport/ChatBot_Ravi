@@ -9,11 +9,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoreBot.CognitiveModels
+namespace CoreBot.Dialogs
 {
-    public class NovoEmpregadoDialog : CancelAndHelpDialog
+    public class NovoEmpregadoDialog: CancelAndHelpDialog
     {
-        private const string DestinationStepMsgText = "Deseja cadastrar um novo empregado?";
+        private const string DestinationStepMsgText = "Qual o nome completo do empregado?";
+        private const string OriginStepMsgText = "Where are you traveling from?";
 
         public NovoEmpregadoDialog()
             : base(nameof(NovoEmpregadoDialog))
