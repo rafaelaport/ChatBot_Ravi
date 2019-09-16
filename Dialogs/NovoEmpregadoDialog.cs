@@ -11,6 +11,7 @@ namespace CoreBot.Dialogs
     public class NovoEmpregadoDialog: CancelAndHelpDialog
     {
         private const string solicitacaoNomeCompleto = "Qual o nome completo do empregado?";
+        private const string solititacaoNomeSolicitante = "Em nome de quem essa solicitação vai ser criada?";
 
         public NovoEmpregadoDialog()
             : base(nameof(NovoEmpregadoDialog))
@@ -22,7 +23,8 @@ namespace CoreBot.Dialogs
             {
                 VerificacaoNomeCompletoNuloOuNaoStepAsync,
                 ConfirmacaoNomeCompletoStepAsync,
-                VerificacaoMatriculaStepAsync
+                VerificacaoMatriculaStepAsync,
+                VerificacaoNomeSolicitante
                 
                 //TravelDateStepAsync,
                 //ConfirmStepAsync,
@@ -55,9 +57,10 @@ namespace CoreBot.Dialogs
 
         private async Task<DialogTurnResult> ConfirmacaoNomeCompletoStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            if ((bool)stepContext.Result)
+            var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
+
+            if ((bool)stepContext.Result && novoEmpregadoDetails.NomeCompleto != null)
             {
-                var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
                 return await stepContext.NextAsync(novoEmpregadoDetails.NomeCompleto, cancellationToken);
             }
             else
@@ -71,7 +74,7 @@ namespace CoreBot.Dialogs
         {
             var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
 
-            //novoEmpregadoDetails.NomeCompleto = (string)stepContext.Result;
+            novoEmpregadoDetails.NomeCompleto = (string)stepContext.Result;
 
             if (novoEmpregadoDetails.Matricula == null)
             {
@@ -81,6 +84,21 @@ namespace CoreBot.Dialogs
             }
 
             return await stepContext.NextAsync(novoEmpregadoDetails.Matricula, cancellationToken);
+        }
+
+        private async Task<DialogTurnResult> VerificacaoNomeSolicitante(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
+
+            novoEmpregadoDetails.Matricula = (string)stepContext.Result;
+
+            if (novoEmpregadoDetails.NomeSolicitante == null)
+            {
+                var promptMessage = MessageFactory.Text(solititacaoNomeSolicitante, solititacaoNomeSolicitante, InputHints.ExpectingInput);
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+            }
+
+            return await stepContext.NextAsync(novoEmpregadoDetails.NomeSolicitante, cancellationToken);
         }
     }
 }
