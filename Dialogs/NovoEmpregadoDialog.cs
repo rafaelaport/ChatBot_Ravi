@@ -18,24 +18,21 @@ namespace CoreBot.Dialogs
         {
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
-           // AddDialog(new DateResolverDialog());
+           //AddDialog(new DateResolverDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
-                VerificacaoNomeCompletoNuloOuNaoStepAsync,
-                ConfirmacaoNomeCompletoStepAsync,
+                VerificacaoNomeCompletoStepAsync,
                 VerificacaoMatriculaStepAsync,
-                VerificacaoNomeSolicitante
-                
-                //TravelDateStepAsync,
-                //ConfirmStepAsync,
-                //FinalStepAsync,
+                VerificacaoNomeSolicitanteStepAsync,
+                ConfirmacaoDadosStepAsync,
+                SolicitacaoFinalizadaStepAsync
             }));
 
             // The initial child Dialog to run.
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        private async Task<DialogTurnResult> VerificacaoNomeCompletoNuloOuNaoStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> VerificacaoNomeCompletoStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
 
@@ -44,32 +41,10 @@ namespace CoreBot.Dialogs
                 var promptMessage = MessageFactory.Text(solicitacaoNomeCompleto, solicitacaoNomeCompleto, InputHints.ExpectingInput);
                 return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
             }
-            else
-            {
 
-                //TODO: alterar Yes e No para Sim e Não
-                var confirmacaoNomeCompleto = $"O nome completo do novo empregado é: {novoEmpregadoDetails.NomeCompleto}?";
-                var promptMessage = MessageFactory.Text(confirmacaoNomeCompleto, confirmacaoNomeCompleto, InputHints.ExpectingInput);
-
-                return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
-            }
+            return await stepContext.NextAsync(novoEmpregadoDetails.NomeCompleto, cancellationToken);
         }
-
-        private async Task<DialogTurnResult> ConfirmacaoNomeCompletoStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
-
-            if ((bool)stepContext.Result && novoEmpregadoDetails.NomeCompleto != null)
-            {
-                return await stepContext.NextAsync(novoEmpregadoDetails.NomeCompleto, cancellationToken);
-            }
-            else
-            {
-                var promptMessage = MessageFactory.Text(solicitacaoNomeCompleto, solicitacaoNomeCompleto, InputHints.ExpectingInput);
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
-            }
-        }
-
+      
         private async Task<DialogTurnResult> VerificacaoMatriculaStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
@@ -86,7 +61,7 @@ namespace CoreBot.Dialogs
             return await stepContext.NextAsync(novoEmpregadoDetails.Matricula, cancellationToken);
         }
 
-        private async Task<DialogTurnResult> VerificacaoNomeSolicitante(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> VerificacaoNomeSolicitanteStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
 
@@ -99,6 +74,41 @@ namespace CoreBot.Dialogs
             }
 
             return await stepContext.NextAsync(novoEmpregadoDetails.NomeSolicitante, cancellationToken);
+        }
+
+        private async Task<DialogTurnResult> ConfirmacaoDadosStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
+
+            novoEmpregadoDetails.NomeSolicitante = (string)stepContext.Result;
+
+            var confirmacaoDados = $"Os dados abaixo estão corretos? \r\n" +
+                $"Nome: { novoEmpregadoDetails.NomeCompleto } \r\n" +
+                $"Matrícula: { novoEmpregadoDetails.Matricula } \r\n" +
+                $"Solicitante: { novoEmpregadoDetails.NomeSolicitante }";
+
+            var promptMessage = MessageFactory.Text(confirmacaoDados, confirmacaoDados, InputHints.ExpectingInput);
+
+            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+
+
+        }
+
+        private async Task<DialogTurnResult> SolicitacaoFinalizadaStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            if ((bool)stepContext.Result)
+            {
+                var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
+
+                var solicitacaoFinalizada = $"Sua solicitação foi finalizada com sucesso e o número é 3030.";
+
+                var promptMessage = MessageFactory.Text(solicitacaoFinalizada, solicitacaoFinalizada, InputHints.ExpectingInput);
+
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+            }
+
+            return await stepContext.BeginDialogAsync(InitialDialogId);
+
         }
     }
 }

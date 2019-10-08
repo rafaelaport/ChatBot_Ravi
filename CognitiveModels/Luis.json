@@ -1,5 +1,5 @@
 {
-  "luis_schema_version": "3.2.0",
+  "luis_schema_version": "4.1.0",
   "versionId": "0.1",
   "name": "ravi-v1-8804",
   "desc": "Luis Model for CoreBot",
@@ -25,15 +25,18 @@
   "entities": [
     {
       "name": "Matricula",
-      "roles": []
+      "roles": [],
+      "hierarchyChildren": []
     },
     {
       "name": "NomeCompleto",
-      "roles": []
+      "roles": [],
+      "hierarchyChildren": []
     },
     {
       "name": "NomeSolicitante",
-      "roles": []
+      "roles": [],
+      "hierarchyChildren": []
     }
   ],
   "composites": [
@@ -403,6 +406,17 @@
       "text": "inserir um novo funcionário",
       "intent": "FuncionalidadeNovoEmpregado",
       "entities": []
+    },
+    {
+      "text": "rafaela portugal da costa",
+      "intent": "FuncionalidadeNovoEmpregado",
+      "entities": [
+        {
+          "entity": "NomeCompleto",
+          "startPos": 0,
+          "endPos": 24
+        }
+      ]
     },
     {
       "text": "travel from new york to paris",
