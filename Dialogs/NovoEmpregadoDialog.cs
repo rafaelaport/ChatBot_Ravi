@@ -18,7 +18,6 @@ namespace CoreBot.Dialogs
         {
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
-           //AddDialog(new DateResolverDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 VerificacaoNomeCompletoStepAsync,
@@ -88,10 +87,10 @@ namespace CoreBot.Dialogs
                 $"Solicitante: { novoEmpregadoDetails.NomeSolicitante }";
 
             var promptMessage = MessageFactory.Text(confirmacaoDados, confirmacaoDados, InputHints.ExpectingInput);
-
+            
+            //TODO: alterar yes/no para sim/não
             return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
-
-
+            
         }
 
         private async Task<DialogTurnResult> SolicitacaoFinalizadaStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -102,6 +101,11 @@ namespace CoreBot.Dialogs
             {        
                 return await stepContext.EndDialogAsync(novoEmpregadoDetails, cancellationToken);
             }
+
+            var solicitacaoDeDadosNovamente = "Já que existe alguma informação errada, preciso que você me informe novamente os dados!";
+            var message = MessageFactory.Text(solicitacaoDeDadosNovamente, solicitacaoDeDadosNovamente, InputHints.IgnoringInput);
+
+            await stepContext.Context.SendActivityAsync(message, cancellationToken);
 
             novoEmpregadoDetails = new NovoEmpregadoDetails();
 

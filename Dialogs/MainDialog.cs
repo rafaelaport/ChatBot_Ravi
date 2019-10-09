@@ -158,7 +158,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             if(stepContext.Result is NovoEmpregadoDetails)
             {
-                var solicitacaoFinalizadaSucesso = $"Sua solicitação foi realizada com sucesso e o número é 3030";
+                var solicitacaoFinalizadaSucesso = "Sua solicitação foi realizada com sucesso e o número é 3030";
                 var message = MessageFactory.Text(solicitacaoFinalizadaSucesso, solicitacaoFinalizadaSucesso, InputHints.IgnoringInput);
 
                 await stepContext.Context.SendActivityAsync(message, cancellationToken);
