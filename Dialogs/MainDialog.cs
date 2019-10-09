@@ -156,6 +156,15 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 await stepContext.Context.SendActivityAsync(message, cancellationToken);
             }
 
+            if(stepContext.Result is NovoEmpregadoDetails)
+            {
+                var solicitacaoFinalizadaSucesso = $"Sua solicitação foi realizada com sucesso e o número é 3030";
+                var message = MessageFactory.Text(solicitacaoFinalizadaSucesso, solicitacaoFinalizadaSucesso, InputHints.IgnoringInput);
+
+                await stepContext.Context.SendActivityAsync(message, cancellationToken);
+
+            }
+
             // Restart the main dialog with a different message the second time around
             var promptMessage = "Posso ajudar em algo mais?";
             return await stepContext.ReplaceDialogAsync(InitialDialogId, promptMessage, cancellationToken);

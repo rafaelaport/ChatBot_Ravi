@@ -96,18 +96,16 @@ namespace CoreBot.Dialogs
 
         private async Task<DialogTurnResult> SolicitacaoFinalizadaStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
+            var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
+
             if ((bool)stepContext.Result)
-            {
-                var novoEmpregadoDetails = (NovoEmpregadoDetails)stepContext.Options;
-
-                var solicitacaoFinalizada = $"Sua solicitação foi finalizada com sucesso e o número é 3030.";
-
-                var promptMessage = MessageFactory.Text(solicitacaoFinalizada, solicitacaoFinalizada, InputHints.ExpectingInput);
-
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+            {        
+                return await stepContext.EndDialogAsync(novoEmpregadoDetails, cancellationToken);
             }
 
-            return await stepContext.BeginDialogAsync(InitialDialogId);
+            novoEmpregadoDetails = new NovoEmpregadoDetails();
+
+            return await stepContext.ReplaceDialogAsync(InitialDialogId, novoEmpregadoDetails);
 
         }
     }
